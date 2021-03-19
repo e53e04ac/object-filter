@@ -26,6 +26,7 @@
     "test": "test",
     "types": "types"
   },
+  "types": "./types/index.d.ts",
   "main": "./src/index.js",
   "scripts": {
     "test": "mocha ./test/*.test.js",
