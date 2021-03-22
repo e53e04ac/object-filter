@@ -11,9 +11,6 @@ type ObjectFilterConstructorOptions = {
     readableHighWaterMark?: number;
     writableHighWaterMark?: number;
     writableCorked?: number;
-    callback: {
-        (input: any): Promise<boolean>;
-    };
 };
 
 type _ObjectFilter = {
@@ -29,8 +26,12 @@ type ObjectFilter = stream.Transform & {
     };
 };
 
+type ObjectFilterBlock = {
+    (input: any): Promise<boolean>;
+};
+
 type ObjectFilterConstructor = {
-    (options: ObjectFilterConstructorOptions): ObjectFilter;
+    (block: ObjectFilterBlock, options?: ObjectFilterConstructorOptions): ObjectFilter;
 };
 
 export const ObjectFilter: ObjectFilterConstructor;

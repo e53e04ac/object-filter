@@ -16,11 +16,7 @@ describe('index.js', async () => {
 
     it('coverage', async () => {
 
-        const objectFilter = ObjectFilter({
-            callback: async (input) => {
-                return input % 2 === 0;
-            }
-        });
+        const objectFilter = ObjectFilter(async (x) => x % 2 == 0);
         objectFilter.ObjectFilterConstructorOptions();
         objectFilter._ObjectFilter();
 

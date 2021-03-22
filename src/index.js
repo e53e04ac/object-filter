@@ -16,15 +16,14 @@ const { ObjectFilter } = (() => {
     /** @typedef ObjectFilterConstructor @type {import('../types').ObjectFilterConstructor} */
 
     /** @type {ObjectFilterConstructor}  */
-    const ObjectFilter = (options) => {
+    const ObjectFilter = (block, options) => {
 
         /** @type {ObjectFilterConstructorOptions}  */
         const _options = {};
-        _options.allowHalfOpen = options.allowHalfOpen;
-        _options.readableHighWaterMark = options.readableHighWaterMark;
-        _options.writableHighWaterMark = options.writableHighWaterMark;
-        _options.writableCorked = options.writableCorked;
-        _options.callback = options.callback;
+        _options.allowHalfOpen = options?.allowHalfOpen;
+        _options.readableHighWaterMark = options?.readableHighWaterMark;
+        _options.writableHighWaterMark = options?.writableHighWaterMark;
+        _options.writableCorked = options?.writableCorked;
 
         /** @type {_ObjectFilter}  */
         const _it = {};
@@ -39,9 +38,9 @@ const { ObjectFilter } = (() => {
             writableHighWaterMark: _options.writableHighWaterMark,
             writableCorked: _options.writableCorked,
             transform: async (chunk, encoding, callback) => {
-                const output = await _options.callback(chunk);
+                const output = await block(chunk);
                 if (output) {
-                    it.push(output);
+                    it.push(chunk);
                 }
                 callback();
             }
